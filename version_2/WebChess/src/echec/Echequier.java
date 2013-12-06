@@ -1,13 +1,12 @@
 package echec;
 
 
-
-
 public class Echequier extends ChessBoardToHtml implements EchequierInterface,Runnable{
 	private Case[][] emplacement;
-	final static int sizeBoard = 8;
-	final static int sizBoardCell = 32;
-	final static String typeOfPiece = "image";
+	final int sizeBoard = 8;
+	final int sizBoardCell = 32;
+	final String typeOfPiece = "image";
+	private String pageHtml = null;
 	
 	public Echequier() {
 		super();
@@ -17,19 +16,10 @@ public class Echequier extends ChessBoardToHtml implements EchequierInterface,Ru
 				emplacement[i][j] = (new Case());
 	}
 	
-	public void showWebchesssBoard(){
-		for (int i = 0; i < emplacement.length; i++)
-			for (int j = 0; j < emplacement.length; j++)
-				System.out.println("i"+" j"+emplacement[i][j].estOccupe());	
-	}
-	
 	public Case getCase(int colonne, int ligne) {
 		return emplacement[colonne][ligne];
 	}
 	
-	public Case[][] getEmplacement(){
-		return emplacement;
-	}
 	private void instanciateAuxi(String c, int i,int j){
 		switch(j){
 			case 0:
@@ -61,7 +51,7 @@ public class Echequier extends ChessBoardToHtml implements EchequierInterface,Ru
 	private void instanciateCase(int i , int j){
 		String couleur = null;
 	
-		if((i == sizeBoard - 1) || (i == sizeBoard - 2))
+		if((i == this.sizeBoard - 1) || (i == this.sizeBoard - 2))
 			couleur ="noir";
 		
 		if(i == 0){
@@ -78,23 +68,22 @@ public class Echequier extends ChessBoardToHtml implements EchequierInterface,Ru
 						Instantiate second line in chessboard*/
 			couleur = "blanc";
 			emplacement[i][j].setPiece(new Pion(couleur));
-			//System.out.println(couleur);
+			System.out.println(couleur);
 		}
 		
-		if(i == sizeBoard-1){
+		if(i == this.sizeBoard-1){
 			instanciateAuxi(couleur,i,j);
-			//System.out.println(couleur);
+			System.out.println(couleur);
 		}
 		
-		if(i == sizeBoard-2){
+		if(i == this.sizeBoard-2){
 			emplacement[i][j].setPiece(new Pion(couleur));
 		}	
 	}
 	
-	
 	public void start() {
-		for (int i = 0;  i < sizeBoard ; ++i){
-			for(int j = 0; j < sizeBoard ; ++j){	
+		for (int i = 0;  i < this.sizeBoard ; ++i){
+			for(int j = 0; j < this.sizeBoard ; ++j){	
 				instanciateCase(i,j);
 				}
 		}
@@ -102,18 +91,20 @@ public class Echequier extends ChessBoardToHtml implements EchequierInterface,Ru
 		
 	}
 	
-	public Object clone(){
-		Echequier e = null;
-		e = (Echequier) super.clone();
-		for (int i = 0; i < emplacement.length; i++)
-			for (int j = 0; j < emplacement.length; j++)
-				e.emplacement[i][j] = (Case) emplacement[i][j].clone();
-		return e;
+	public void showChequierBoard(){
+		for (int i = 0;  i < this.sizeBoard ; ++i){
+			for(int j = 0; j < this.sizeBoard ; ++j){
+				if(this.getCase(i, j).estOccupe()){
+					System.out.println(this.getCase(i, j).getPiece().getType());
+					System.out.println(this.getCase(i, j).getPiece().getCouleur());
+				}
+			}
+		}
 	}
 	
 	private void drawFirstTableHtmlLine(){	
 		this.drawEmptyCase();
-		for (int i = 0; i < sizeBoard; ++i){
+		for (int i = 0; i < this.sizeBoard; ++i){
 			this.drawBorderCase(new ConvertIndexToLetter(i).getLetterConverted()+"");
 		}
 		this.drawEmptyCase();
@@ -122,19 +113,6 @@ public class Echequier extends ChessBoardToHtml implements EchequierInterface,Ru
 		this.encapsulateLine(this.getLine());		
 	}
 	
-	private void drawtSecondToNinthTableHtmlLine(int ligne, int colonne){
-		if(colonne == 0){
-			this.drawBorderCase((ligne+1)+"");
-		}
-		this.getStreamHtml().add(HtmlPageGenerator.getCasesToModify()[ligne][colonne]+ContentManagement.NEW_LINE);
-		if(colonne == (sizeBoard - 1)){
-			System.out.println("ok");
-			this.drawBorderCase((ligne + 1)+"");
-			this.setLine(this.ArrayListToString(this.getStreamHtml()));
-			this.getStreamHtml().clear(); // clear All
-			this.encapsulateLine(this.getLine());
-		}
-	}
 	private void drawtSecondToNinthTableHtmlLine(int ligne, int colonne, String classe){
 		
 		if(colonne == 0){
@@ -142,7 +120,7 @@ public class Echequier extends ChessBoardToHtml implements EchequierInterface,Ru
 		}
 		
 		if(!(this.getCase(ligne, colonne).estOccupe())){ // empty case	
-				this.drawCaseWithoutPiece("\"pieces/blank.svg\"", " ",sizBoardCell, classe);
+				this.drawCaseWithoutPiece("\"pieces/blank.svg\"", " ",this.sizBoardCell, classe);
 		}else{// Not empty case
 			if(this.getCase(ligne, colonne).getPiece().getType().equals("Pion")){
 				this.caseWithWhitePawnToHtmlFormat(ligne, colonne,classe);
@@ -170,7 +148,7 @@ public class Echequier extends ChessBoardToHtml implements EchequierInterface,Ru
 			}
 		}
 		
-		if(colonne == (sizeBoard - 1)){
+		if(colonne == (this.sizeBoard - 1)){
 			this.drawBorderCase((ligne + 1)+"");
 			this.setLine(this.ArrayListToString(this.getStreamHtml()));
 			this.getStreamHtml().clear(); // clear All
@@ -206,10 +184,6 @@ public class Echequier extends ChessBoardToHtml implements EchequierInterface,Ru
 		this.setLine(this.ArrayListToString(getStreamHtml()));
 		contentHead += this.getLine();
 		this.getStreamHtml().clear();
-		this.drawLink("icon", "favicon.png", "image/png");
-		this.setLine(this.ArrayListToString(getStreamHtml()));
-		contentHead += this.getLine();
-		this.getStreamHtml().clear();
 		this.drawTitle(PageHtml.getDocTitle());
 		this.setLine(this.ArrayListToString(getStreamHtml()));
 		contentHead += this.getLine();
@@ -219,41 +193,27 @@ public class Echequier extends ChessBoardToHtml implements EchequierInterface,Ru
 	
 	
 	public String showWebchessBoardInHtmlFormat() { // Add necessary Attributes
-		new HtmlPageGenerator();
-		String body = createBodyContent(false);
+		String body = createBodyContent();
 		String head = createHeadContent();
 		PageHtml e = new PageHtml(head, body);
-		System.out.println("show");
 		return e.getPageHtml();
 		
 	}
 	
-	public String showWebchessBoardModifyInHtmlFormat(){
-		String body = createBodyContent(true);
-		String head = createHeadContent();
-		PageHtml e = new PageHtml(head, body);
-		System.out.println("show");
-		return e.getPageHtml();
-	}
-	
-	private String createBodyContent(boolean modify){
+	private String createBodyContent(){
 		String contentTable = "";
 		drawFirstTableHtmlLine(); 
 		contentTable += this.getLine();
 		String classe = null;
 		String value = null;
-		
-		for(int i = 0; i < sizeBoard; ++i){
+		for(int i = 0; i < this.sizeBoard; ++i){
 			if( (i+1) % 2 == 0){
 				classe = "even";
 			}else{
 				classe = "odd";
 			}
-			for(int j = 0; j < sizeBoard; ++j){
-				if(modify)
-					this.drawtSecondToNinthTableHtmlLine(i, j);
-				if(!modify)
-					this.drawtSecondToNinthTableHtmlLine(i, j,classe);
+			for(int j = 0; j < this.sizeBoard; ++j){
+				this.drawtSecondToNinthTableHtmlLine(i, j,classe);
 				if(classe == "even")
 					value = "odd";
 				if(classe == "odd")
@@ -261,7 +221,6 @@ public class Echequier extends ChessBoardToHtml implements EchequierInterface,Ru
 				classe = value;
 			}
 			contentTable += this.getLine();
-			//System.out.println(this.getLine());
 		}
 		drawFirstTableHtmlLine(); // last and the first is the same
 		contentTable += this.getLine();
@@ -278,87 +237,148 @@ public class Echequier extends ChessBoardToHtml implements EchequierInterface,Ru
 
 	private void caseWithWhiteBishopToHtmlFormat(int ligne,int colonne, String classe){
 		if(this.getCase(ligne,colonne).getPiece().getCouleur().equals("blanc")){
-			this.drawCaseWithPiece("\"pieces/whiteBishop.svg\"", typeOfPiece,createName(ligne,colonne), "\"F\"",sizBoardCell, classe);
+			this.drawCaseWithPiece("\"pieces/whiteBishop.svg\"", this.typeOfPiece,createName(ligne,colonne), "\"F\"",this.sizBoardCell, classe);
 		}
 	}
 	private void caseWithBlackBishopToHtmlFormat(int ligne,int colonne,String classe){
 		if(this.getCase(ligne,colonne).getPiece().getCouleur().equals("noir")){
-			this.drawCaseWithPiece("\"pieces/blackBishop.svg\"", typeOfPiece,createName(ligne,colonne), "\"f\"",sizBoardCell, classe);
+			this.drawCaseWithPiece("\"pieces/blackBishop.svg\"", this.typeOfPiece,createName(ligne,colonne), "\"f\"",this.sizBoardCell, classe);
 		}
 	}
 	private void caseWithBlackRookToHtmlFormat(int ligne,int colonne,String classe){
 		if(this.getCase(ligne,colonne).getPiece().getCouleur().equals("noir")){
-			this.drawCaseWithPiece("\"pieces/blackRook.svg\"", typeOfPiece,createName(ligne,colonne), "\"t\"",sizBoardCell, classe);
+			this.drawCaseWithPiece("\"pieces/blackRook.svg\"", this.typeOfPiece,createName(ligne,colonne), "\"t\"",this.sizBoardCell, classe);
 		}
 	}
 	private void caseWithWhiteRookToHtmlFormat(int ligne,int colonne, String classe){
 		if(this.getCase(ligne,colonne).getPiece().getCouleur().equals("blanc")){
-			this.drawCaseWithPiece("\"pieces/whiteRook.svg\"", typeOfPiece,createName(ligne,colonne), "\"T\"",sizBoardCell, classe);
+			this.drawCaseWithPiece("\"pieces/whiteRook.svg\"", this.typeOfPiece,createName(ligne,colonne), "\"T\"",this.sizBoardCell, classe);
 		}
 	}
 	private void caseWithWhiteKnightToHtmlFormat(int ligne, int colonne,String classe){
 		if(this.getCase(ligne,colonne).getPiece().getCouleur().equals("blanc")){
-			this.drawCaseWithPiece("\"pieces/whiteKnight.svg\"", typeOfPiece,createName(ligne,colonne), "\"C\"",sizBoardCell, classe);
+			this.drawCaseWithPiece("\"pieces/whiteKnight.svg\"", this.typeOfPiece,createName(ligne,colonne), "\"C\"",this.sizBoardCell, classe);
 		}
 	}
 	
 	private void caseWithBlackKnightToHtmlFormat(int ligne, int colonne, String classe){
 		if(this.getCase(ligne,colonne).getPiece().getCouleur().equals("noir")){
-			this.drawCaseWithPiece("\"pieces/blackKnight.svg\"", typeOfPiece,createName(ligne,colonne), "\"c\"",sizBoardCell, classe);
+			this.drawCaseWithPiece("\"pieces/blackKnight.svg\"", this.typeOfPiece,createName(ligne,colonne), "\"c\"",this.sizBoardCell, classe);
 		}
 	}
 	private void caseWithBlackKingToHtmlFormat(int ligne, int colonne, String classe){
 		if(this.getCase(ligne,colonne).getPiece().getCouleur().equals("noir")){
-			this.drawCaseWithPiece("\"pieces/blackKing.svg\"", typeOfPiece,createName(ligne,colonne), "\"r\"",sizBoardCell, classe);
+			this.drawCaseWithPiece("\"pieces/whiteKing.svg\"", this.typeOfPiece,createName(ligne,colonne), "\"r\"",this.sizBoardCell, classe);
 		}
 	}
 	private void caseWithWhiteKingToHtmlFormat(int ligne, int colonne,String classe){
 		if(this.getCase(ligne,colonne).getPiece().getCouleur().equals("blanc")){
-			this.drawCaseWithPiece("\"pieces/whiteKing.svg\"", typeOfPiece,createName(ligne,colonne), "\"R\"",sizBoardCell, classe);
+			this.drawCaseWithPiece("\"pieces/whiteKing.svg\"", this.typeOfPiece,createName(ligne,colonne), "\"R\"",this.sizBoardCell, classe);
 		}
 	}
 	private void caseWithBlackQueenToHtmlFormat(int ligne, int colonne, String classe){
 		if(this.getCase(ligne,colonne).getPiece().getCouleur().equals("noir")){
-			this.drawCaseWithPiece("\"pieces/blackQueen.svg\"", typeOfPiece,createName(ligne,colonne),"\"d\"",sizBoardCell, classe);
+			this.drawCaseWithPiece("\"pieces/blackQueen.svg\"", this.typeOfPiece,createName(ligne,colonne),"\"d\"",this.sizBoardCell, classe);
 		}
 	}
 	private void caseWithWhiteQueenToHtmlFormat(int ligne,int colonne, String classe){
 		if(this.getCase(ligne,colonne).getPiece().getCouleur().equals("blanc")){
-			this.drawCaseWithPiece("\"pieces/whiteQueen.svg\"", typeOfPiece,createName(ligne,colonne), "\"D\"",sizBoardCell, classe);
+			this.drawCaseWithPiece("\"pieces/whiteQueen.svg\"", this.typeOfPiece,createName(ligne,colonne), "\"D\"",this.sizBoardCell, classe);
 		}
 	}
 	
 	private void caseWithWhitePawnToHtmlFormat(int ligne, int colonne, String classe){
 		if(this.getCase(ligne,colonne).getPiece().getCouleur().equals("blanc")){
-			this.drawCaseWithPiece("\"pieces/whitePawn.svg\"", typeOfPiece,createName(ligne,colonne), "\"P\"",sizBoardCell, classe);
+			this.drawCaseWithPiece("\"pieces/whitePawn.svg\"", this.typeOfPiece,createName(ligne,colonne), "\"P\"",this.sizBoardCell, classe);
 		}
 	}
 	
 	private void caseWithBlackPawnToHtmlFormat(int ligne, int colonne, String classe){
 		if(this.getCase(ligne,colonne).getPiece().getCouleur().equals("noir")){
-			this.drawCaseWithPiece("\"pieces/blackPawn.svg\"", typeOfPiece,createName(ligne,colonne), "\"p\"",sizBoardCell, classe);
+			this.drawCaseWithPiece("\"pieces/blackPawn.svg\"", this.typeOfPiece,createName(ligne,colonne), "\"p\"",this.sizBoardCell, classe);
 		}
 	}
 	
-	public static String createName(int ligne, int colonne){
+	private String createName(int ligne, int colonne){
 		ConvertIndexToLetter c = new ConvertIndexToLetter(colonne);
 		return ("\""+ c.getLetterConverted()+(ligne+1)+"\"");
 	}
 	
-	public static int[] createIndices(char[] name){
-		int[] tmp = new int[2];
-		tmp[0] = (Integer.parseInt(name[1] + "") - 1); // Line
-		tmp[1] = (new echec.ConvertLetterToIndex(name[0])).getIndiceConverted(); // Column
-		return tmp;
-	}
 
+	public String getElement() {
+		return null;
+	}
 
 	public void run() {
 		// Writing
-		this.showWebchessBoardInHtmlFormat();
+		this.setPageHtml(this.showWebchessBoardInHtmlFormat());
 	}
 
+	public String getPageHtml() {
+		return pageHtml;
+	}
+
+	public void setPageHtml(String pageHtml) {
+		this.pageHtml = pageHtml;
+	}
+
+	public boolean deplacementPossible(Deplacement deplacement) {
+		Piece pieceDepart = emplacement[(int)deplacement.getDepart().getColonne()][(int)deplacement.getDepart().getLigne()].getPiece();
+		
+		//on vérifie si la case d'arrivée est libre ou si elle est occupé par une piece de l'adversaire
+		if (!emplacement[(int)deplacement.getArrivee().getColonne()][(int)deplacement.getArrivee().getLigne()].estOccupe(pieceDepart.getCouleur().equals("blanc") ? "blanc" : "noir")
+				| deplacement.isNul()){
+			if (!(pieceDepart.getType() == "Cavalier")){
+				if(!(pieceDepart.getType() == "Pion")){
+					if(!(Math.abs(deplacement.getDeplacementX()) - Math.abs(deplacement.getDeplacementY()) <= 1
+							&& Math.abs(deplacement.getDeplacementX()) + Math.abs(deplacement.getDeplacementY()) <= 1)){
+
+						//depColonne et depLigne vont servir pour vérifier chaque case lors du déplacement
+						int depColonne = deplacement.getDeplacementX() == 0 ? 0 : (int)(deplacement.getArrivee().getColonne() - deplacement.getDepart().getColonne())
+								/Math.abs((int)(deplacement.getArrivee().getColonne() - deplacement.getDepart().getColonne()));
+				
+						int depLigne = deplacement.getDeplacementY() == 0 ? 0 : (int)(deplacement.getArrivee().getLigne() - deplacement.getDepart().getLigne())
+								/Math.abs((int)(deplacement.getArrivee().getLigne() - deplacement.getDepart().getLigne()));
+
+						//On vérifie chaque case lors du déplacement
+						for (int i = (int)deplacement.getDepart().getColonne() + depColonne, j = (int)deplacement.getDepart().getLigne() + depLigne;
+							i != (int)deplacement.getArrivee().getColonne() | j != (int)deplacement.getArrivee().getLigne();
+							i += depColonne, j += depLigne){
+							if (emplacement[i][j].estOccupe()){
+								return false;
+							}
+						}
+						return true;
+					}
+					else
+						return true;
+				}
+				else
+					//Si c'est un pion, je vérifie si la case est libre
+					return !emplacement[(int)deplacement.getArrivee().getColonne()][(int)deplacement.getArrivee().getLigne()].estOccupe();
+					
+			}
+			else
+				//je renvoie true car un cavalier peut sauter par dessus les autres pièces.
+				return true;
+		}
+		else
+			//Le mouvement n'est pas possible si la case d'arrivé contient une pièce de meme couleur
+			return false;
+
+		
+	}
 
 	
-	
+	public boolean captureParUnPionPossible(Deplacement deplacement) {
+		if(emplacement[deplacement.getDepart().getColonne()][deplacement.getDepart().getLigne()].getPiece().getType() == "Pion")
+		{
+			Case Arrive = emplacement[(int)deplacement.getArrivee().getColonne()][(int)deplacement.getArrivee().getLigne()];
+			String couleurDepart = emplacement[(int)deplacement.getDepart().getColonne()][(int)deplacement.getDepart().getLigne()].getPiece().getCouleur();
+			
+			if(Arrive.estOccupe(couleurDepart.equals("blanc") ? "noir" : "blanc"))
+				return (deplacement.getDeplacementY() * Math.abs(deplacement.getDeplacementX()) == (couleurDepart.equals("noir") ? 1 : -1));
+		}
+		return false;
+	}
 }
