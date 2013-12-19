@@ -16,7 +16,7 @@ public class Deplacement  {
 		this.arrivee = arrivee;
 		this.depart = depart;
 		this.deplacementX = arrivee.getColonne() - depart.getColonne(); // le déplacement est noté de façon relative
-		this.deplacementY = arrivee.getLigne() - depart.getLigne(); // De combien de case la piece s'est déplacé
+		this.deplacementY = arrivee.getLigne() - depart.getLigne(); // De combien de cases la piece s'est déplacé
 	}
 
 
@@ -80,7 +80,7 @@ public class Deplacement  {
 					
 	}*/
 	
-	public Boolean Echec(Deplacement deplacement){
-		return true;
-	}
+	//public Boolean Echec(Deplacement deplacement){
+		//return true;
+	//}
 }
