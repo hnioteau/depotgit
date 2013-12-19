@@ -11,7 +11,7 @@ public class Echequier extends ChessBoardToHtml implements EchequierInterface,Ru
 	
 	public Echequier() {
 		super();
-		emplacement = new Case[sizeBoard][sizeBoard];
+		emplacement = new Case[sizeBoard][sizeBoard]; //créé un tableau de 2 dimensions contenant des cases
 		for (int i = 0; i < emplacement.length; i++)
 			for (int j = 0; j < emplacement.length; j++)
 				emplacement[i][j] = (new Case());
@@ -30,7 +30,7 @@ public class Echequier extends ChessBoardToHtml implements EchequierInterface,Ru
 	public Case[][] getEmplacement(){
 		return emplacement;
 	}
-	private void instanciateAuxi(String c, int i,int j){
+	private void instanciateAuxi(String c, int i,int j){ //place les pieces sur l'échequier pour débuter la partie
 		switch(j){
 			case 0:
 				emplacement[i][j].setPiece(new Tour(c));
@@ -198,9 +198,9 @@ public class Echequier extends ChessBoardToHtml implements EchequierInterface,Ru
 	
 	private void drawBottomButtons(){
 		this.drawBreakLine();
-		this.drawButton("submit","New", "NewButton","button");
-		this.drawButton("submit", "Undo","UndoButton","button");
-		this.drawButton("submit", "Redo","RedoButton","button");
+		this.drawButton("submit","New", "NewButton","button"); //créé une nouvelle partie
+		this.drawButton("submit", "Undo","UndoButton","button"); //annule le coup
+		this.drawButton("submit", "Redo","RedoButton","button"); //met le coup (ne fonctionne que si undo a déjà été utilisé)
 		this.setLine(this.ArrayListToString(this.getStreamHtml()));
 		this.getStreamHtml().clear(); // Clear
 		

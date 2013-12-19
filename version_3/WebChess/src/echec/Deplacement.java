@@ -15,7 +15,7 @@ public class Deplacement  {
 	{
 		this.arrivee = arrivee;
 		this.depart = depart;
-		this.deplacementX = arrivee.getColonne() - depart.getColonne();
+		this.deplacementX = arrivee.getColonne() - depart.getColonne(); // le déplacement est noté de façon relative
 		this.deplacementY = arrivee.getLigne() - depart.getLigne(); // De combien de case la piece s'est déplacé
 	}
 
@@ -49,7 +49,7 @@ public class Deplacement  {
 		em[arrivee.getLigne()][arrivee.getColonne()].setPiece(p);
 		
 	}
-	public Position[] deplacementPossible(Piece piece, Position positiond){ //à changer suivant la position de la piece, n'est pour l'instand valble que pour une piece à la position a1
+	public Position[] deplacementPossible(Piece piece, Position positiond){ 
 		Position tab[] = new Position[64]; //creer un tableau qui contiendra l'ensemble des positions possible de la piece
 		Deplacement dep = new Deplacement(positiond,positiond);
 		dep.depart.setColonne(positiond.getColonne());
@@ -66,7 +66,7 @@ public class Deplacement  {
 			}
 		}
 		return tab;		
-}// Methode a comprendre et modifier
+}
 	
 	/*public Boolean roiEnEchec(Piece piece, Position positiond){
 		Position dp[] = deplacementPossible(piece, positiond);
