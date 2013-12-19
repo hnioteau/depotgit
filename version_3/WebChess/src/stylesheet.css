@@ -1,0 +1,33 @@
+body {
+	background: white;
+}
+
+td {
+	text-align: center;
+}
+
+.odd {
+	background: lightgrey;
+}
+
+.even {
+	background: white;
+}
+
+.oddSelect {
+	background: grey;
+}
+
+.evenSelect {
+	background: grey;
+}
+
+.border {
+	background-color: black;
+	width: 32px;
+	height: 32px;
+	color: white;
+}
+
+.corner {
+}

@@ -58,7 +58,7 @@ public class HttpRequest {
 	}
 	
 	private void createFile(String URI){
-		file = new File("/Users/ismo/Downloads/webchess/"+ URI); // create a new file instance (base.html,stylesheet.css,and so on ...)
+		file = new File("src" + URI); // /Users/ismo/Downloads/webchess/create a new file instance (base.html,stylesheet.css,and so on ...)
 		System.out.println("Path of File");
 		System.out.println(this.file.getPath());
 	}

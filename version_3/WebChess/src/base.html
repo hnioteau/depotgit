@@ -1,0 +1,135 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="stylesheet.css" type="text/css" />
+<title>
+	Échecs en ligne
+</title>
+</head>
+<body>
+<form>
+<table align=center>
+	<tr>
+		<td class="corner"></td>
+		<td class="border">A</td>
+		<td class="border">B</td>
+		<td class="border">C</td>
+		<td class="border">D</td>
+		<td class="border">E</td>
+		<td class="border">F</td>
+		<td class="border">G</td>
+		<td class="border">H</td>
+		<td class="corner"></td>
+	</tr>
+	<tr>
+		<td class="border">8</td>
+		<td class="even"><img src="pieces/blackRook.svg"   alt="t" width=32 /></td>
+		<td class="odd"> <img src="pieces/blackKnight.svg" alt="c" width=32 /></td>
+		<td class="even"><img src="pieces/blackBishop.svg" alt="f" width=32 /></td>
+		<td class="odd"> <img src="pieces/blackQueen.svg"  alt="d" width=32 /></td>
+		<td class="even"><img src="pieces/blackKing.svg"   alt="r" width=32 /></td>
+		<td class="odd"> <img src="pieces/blackBishop.svg" alt="f" width=32 /></td>
+		<td class="even"><img src="pieces/blackKnight.svg" alt="c" width=32 /></td>
+		<td class="odd"> <img src="pieces/blackRook.svg"   alt="t" width=32 /></td>
+		<td class="border">8</td>
+	</tr>
+	<tr>
+		<td class="border">7</td>
+		<td class="odd"> <img src="pieces/blackPawn.svg" alt="p" width=32 /></td>
+		<td class="even"><img src="pieces/blackPawn.svg" alt="p" width=32 /></td>
+		<td class="odd"> <img src="pieces/blackPawn.svg" alt="p" width=32 /></td>
+		<td class="even"><img src="pieces/blackPawn.svg" alt="p" width=32 /></td>
+		<td class="odd"> <img src="pieces/blackPawn.svg" alt="p" width=32 /></td>
+		<td class="even"><img src="pieces/blackPawn.svg" alt="p" width=32 /></td>
+		<td class="odd"> <img src="pieces/blackPawn.svg" alt="p" width=32 /></td>
+		<td class="even"><img src="pieces/blackPawn.svg" alt="p" width=32 /></td>
+		<td class="border">7</td>
+	</tr>
+	<tr>
+		<td class="border">6</td>
+		<td class="even"><img src="pieces/blank.svg" alt=" " width=32 /></td>
+		<td class="odd" ><img src="pieces/blank.svg" alt=" " width=32 /></td>
+		<td class="even"><img src="pieces/blank.svg" alt=" " width=32 /></td>
+		<td class="odd" ><img src="pieces/blank.svg" alt=" " width=32 /></td>
+		<td class="even"><img src="pieces/blank.svg" alt=" " width=32 /></td>
+		<td class="odd" ><img src="pieces/blank.svg" alt=" " width=32 /></td>
+		<td class="even"><img src="pieces/blank.svg" alt=" " width=32 /></td>
+		<td class="odd" ><img src="pieces/blank.svg" alt=" " width=32 /></td>
+		<td class="border">6</td>
+	</tr>
+	<tr>
+		<td class="border">5</td>
+		<td class="odd" ><img src="pieces/blank.svg" alt=" " width=32 /></td>
+		<td class="even"><img src="pieces/blank.svg" alt=" " width=32 /></td>
+		<td class="odd" ><img src="pieces/blank.svg" alt=" " width=32 /></td>
+		<td class="even"><img src="pieces/blank.svg" alt=" " width=32 /></td>
+		<td class="odd" ><img src="pieces/blank.svg" alt=" " width=32 /></td>
+		<td class="even"><img src="pieces/blank.svg" alt=" " width=32 /></td>
+		<td class="odd" ><img src="pieces/blank.svg" alt=" " width=32 /></td>
+		<td class="even"><img src="pieces/blank.svg" alt=" " width=32 /></td>
+		<td class="border">5</td>
+	</tr>
+	<tr>
+		<td class="border">4</td>
+		<td class="even"><img src="pieces/blank.svg" alt=" " width=32 /></td>
+		<td class="odd" ><img src="pieces/blank.svg" alt=" " width=32 /></td>
+		<td class="even"><img src="pieces/blank.svg" alt=" " width=32 /></td>
+		<td class="odd" ><img src="pieces/blank.svg" alt=" " width=32 /></td>
+		<td class="evenSelect"><input type="image" name="toE4" src="pieces/blank.svg" alt=" " width=32 /></td>
+		<td class="odd" ><img src="pieces/blank.svg" alt=" " width=32 /></td>
+		<td class="even"><img src="pieces/blank.svg" alt=" " width=32 /></td>
+		<td class="odd" ><img src="pieces/blank.svg" alt=" " width=32 /></td>
+		<td class="border">4</td>
+	</tr>
+	<tr>
+		<td class="border">3</td>
+		<td class="odd" ><img src="pieces/blank.svg" alt=" " width=32 /></td>
+		<td class="even"><img src="pieces/blank.svg" alt=" " width=32 /></td>
+		<td class="odd" ><img src="pieces/blank.svg" alt=" " width=32 /></td>
+		<td class="even"><img src="pieces/blank.svg" alt=" " width=32 /></td>
+		<td class="oddSelect"><input type="image" name="toE3" src="pieces/blank.svg" alt=" " width=32 /></td>
+		<td class="even"><img src="pieces/blank.svg" alt=" " width=32 /></td>
+		<td class="odd" ><img src="pieces/blank.svg" alt=" " width=32 /></td>
+		<td class="even"><img src="pieces/blank.svg" alt=" " width=32 /></td>
+		<td class="border">3</td>
+	</tr>
+	<tr>
+		<td class="border">2</td>
+		<td class="even"><input type="image" name="A2" src="pieces/whitePawn.svg" alt="P" width=32 /></td>
+		<td class="odd" ><input type="image" name="B2" src="pieces/whitePawn.svg" alt="P" width=32 /></td>
+		<td class="even"><input type="image" name="C2" src="pieces/whitePawn.svg" alt="P" width=32 /></td>
+		<td class="odd" ><input type="image" name="D2" src="pieces/whitePawn.svg" alt="P" width=32 /></td>
+		<td class="even"><input type="image" name="E2" src="pieces/whitePawn.svg" alt="P" width=32 /></td>
+		<td class="odd" ><input type="image" name="F2" src="pieces/whitePawn.svg" alt="P" width=32 /></td>
+		<td class="even"><input type="image" name="G2" src="pieces/whitePawn.svg" alt="P" width=32 /></td>
+		<td class="odd" ><input type="image" name="H2" src="pieces/whitePawn.svg" alt="P" width=32 /></td>
+		<td class="border">2</td>
+	</tr>
+	<tr>
+		<td class="border">1</td>
+		<td class="odd" ><input type="image" name="A1" src="pieces/whiteRook.svg"   alt="T" width=32 /></td>
+		<td class="even"><input type="image" name="B1" src="pieces/whiteKnight.svg" alt="C" width=32 /></td>
+		<td class="odd" ><input type="image" name="C1" src="pieces/whiteBishop.svg" alt="F" width=32 /></td>
+		<td class="even"><input type="image" name="D1" src="pieces/whiteQueen.svg"  alt="D" width=32 /></td>
+		<td class="odd" ><input type="image" name="E1" src="pieces/whiteKing.svg"   alt="R" width=32 /></td>
+		<td class="even"><input type="image" name="F1" src="pieces/whiteBishop.svg" alt="F" width=32 /></td>
+		<td class="odd" ><input type="image" name="G1" src="pieces/whiteKnight.svg" alt="C" width=32 /></td>
+		<td class="even"><input type="image" name="H1" src="pieces/whiteRook.svg"   alt="T" width=32 /></td>
+		<td class="border">1</td>
+	</tr>
+	<tr>
+		<td class="corner"></td>
+		<td class="border">A</td>
+		<td class="border">B</td>
+		<td class="border">C</td>
+		<td class="border">D</td>
+		<td class="border">E</td>
+		<td class="border">F</td>
+		<td class="border">G</td>
+		<td class="border">H</td>
+		<td class="corner"></td>
+	</tr>
+</table>
+</form>
+</body>
+</html>
